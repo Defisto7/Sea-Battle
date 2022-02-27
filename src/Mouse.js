@@ -73,10 +73,11 @@ class Mouse {
     }
 
     tick () {
-        this.pX = this.x
-        this.pY = this.y
-        this.pUnder = this.under
-        this.pLeft = this.left
-        this.pDelta = this.delta
+        this.pX = this.x;
+        this.pY = this.y;
+        this.pUnder = this.under;
+        this.pLeft = this.left;
+        this.pDelta = this.delta;
+        this.Delta = 0;
     }
 }
