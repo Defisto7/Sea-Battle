@@ -27,7 +27,9 @@ class PreparationScene extends Scene {
 
     }
 
-    start() {}
+    start() {
+        this.app.player.randomize()
+    }
 
     update() {
         const {mouse, player} = this.app;

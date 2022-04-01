@@ -1,5 +1,5 @@
 function getRandomBetween (min, max) {
-    return mix + Math.floor(Math.random()) * (max - min + 1);
+    return min + Math.floor(Math.random()) * (max - min + 1);
 }
 
 function getRandomFrom(...args) {

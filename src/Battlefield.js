@@ -154,4 +154,23 @@ class Battlefield {
         return shots.length;
     }
 
+	randomize (ShipClass = Ship) {
+		this.removeAllShips();
+
+		for (let size = 4; size >= 1; size--) {
+			for (let n = 0; n < 5 - size; n++) {
+				const direction = getRandomFrom('row', 'colum')
+				const ship = new ShipClass(size, direction);
+
+				while (!ship.placed) {
+					const x = getRandomBetween(0, 9);
+					const y = getRandomBetween(0, 9);
+
+					this.removeShip(ship);
+					this.addShip(ship, x, y);
+				}
+			}
+		}
+	}
+
 }
