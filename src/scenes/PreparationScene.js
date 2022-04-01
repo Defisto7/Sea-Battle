@@ -27,9 +27,7 @@ class PreparationScene extends Scene {
 
     }
 
-    start() {
-        
-    }
+    start() {}
 
     update() {
         const {mouse, player} = this.app;
@@ -46,18 +44,43 @@ class PreparationScene extends Scene {
                 this.draggedOffsetY = mouse.y - shipRect.top;
             }
         }
-
+        // Перетаскивание
         if (mouse.left && this.draggedShip) {
             const {left, top} = player.root.getBoundingClientRect()
 
             this.draggedShip.div.style.left = `${mouse.x - left - this.draggedOffsetX}px`
             this.draggedShip.div.style.top = `${mouse.y - top - this.draggedOffsetY}px`
         }
-
+        // Бросание
         if(!mouse.left && this.draggedShip) {
+            const ship = this.draggedShip;
             this.draggedShip = null;
+
+            const {left, top} = ship.div.getBoundingClientRect();
+            const {width, height} = player.cells[0][0].getBoundingClientRect();
+            
+            const point = {
+                x: left + width / 2,
+                y: top + height / 2,
+            };
+
+            const cell = player.cells
+                .flat()
+                .find((cell) => isUnderPoint(point, cell));
+
+            if (cell) {
+                const x = parseInt(cell.dataset.x);
+                const y = parseInt(cell.dataset.y);
+
+                player.removeShip(ship);
+                player.addShip(ship, x, y);
+            } else {
+                player.removeShip(ship);
+                player.addShip(ship);
+            }
         }
 
+        // Вращение
         if (this.draggedShip && mouse.delta) {
             this.draggedShip.toggleDirection();
         }
